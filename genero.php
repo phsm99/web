@@ -8,7 +8,7 @@ if (!empty($_GET['acao'])) {
 
     //listar genero
     if ($acao == "listar_generos") {
-        $sql_genero = "SELECT * from genero order by 1;";
+        $sql_genero = "SELECT * from genero order by Id;";
 
         $query_genero = mysqli_query($conexao, $sql_genero);
 

@@ -25,6 +25,14 @@ var item_genero = function (id, nome) {
     return html;
 }
 
+var item_cantor = function (id, nome) {
+    var html = `<tr id="cantor_${id}">`;
+    html += `       <th scope='row'>${id}</th>`;
+    html += `       <td>${nome}</td>`;
+    html += `       <td><button type="button" onclick="delete_cantor(${id})" class="btn btn-danger">Apagar</button></td>`;
+    html += `   </tr>`;
+    return html;
+}
 
 
 function delete_musica(id) {
@@ -65,6 +73,28 @@ function delete_genero(id) {
     };
 
     xhr.open('GET', 'genero.php?acao=excluir_generos&id=' + id);
+    xhr.send();
+
+}
+
+
+function delete_cantor(id) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            var dado = JSON.parse(xhr.responseText);
+            if (dado == 1) {
+                document.getElementById('cantor_' + id).remove();
+
+            }
+            else {
+                alert('erro ao deletar item');
+            }
+        }
+    };
+
+    xhr.open('GET', 'cantor.php?acao=excluir_cantor&id=' + id);
     xhr.send();
 
 }

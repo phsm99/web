@@ -26,7 +26,8 @@
             <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item ">
-                        <a class="nav-link" href="./index.html">Página Principal <span class="sr-only">(página atual)</span></a>
+                        <a class="nav-link" href="./index.html">Página Principal <span class="sr-only">(página
+                                atual)</span></a>
                     </li>
                     <li class="nav-item active" style="font-weight: bold;">
                         <a class="nav-link" href="#">Cantor</a>
@@ -38,12 +39,11 @@
                 </ul>
             </div>
         </nav>
-        
+
         <button type="button" class="btn btn-dark">Criar Nova Música</button>
         <hr>
-        <div id="listaMusicas" class="row">
-
-
+        <div id="listaCantor">
+           
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -58,6 +58,37 @@
         crossorigin="anonymous"></script>
 
     <script src="main.js"></script>
+
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                var dado = JSON.parse(xhr.responseText);
+                var conteudoHTML = `<table class="table">`;
+                conteudoHTML += `       <thead>`;
+                conteudoHTML += `           <tr>`;
+                conteudoHTML += `               <th scope="col">Id</th>`;
+                conteudoHTML += `               <th scope="col">Nome</th>`;
+                conteudoHTML += `               <th scope="col"></th>`;
+                conteudoHTML += `           </tr>`;
+                conteudoHTML += `       </thead>`;
+                conteudoHTML += `       <tbody>`;
+                for (var i = 0; i < dado.length; i++) {
+                    conteudoHTML += item_cantor(dado[i].Id, dado[i].Nome);
+                }
+                conteudoHTML += `       </tbody>`;
+                conteudoHTML += `</table>`;
+
+                console.log(conteudoHTML);
+
+                document.getElementById('listaCantores').innerHTML = conteudoHTML;
+            }
+        };
+
+        xhr.open('GET', 'cantor.php?acao=listar_cantores');
+        xhr.send();
+
+    </script>
 </body>
 
 </html>
